@@ -1,1 +1,1 @@
-A simple Calendar That let's you do nothing more than view the date<s>Pretty fucking useless imo</s>
+<em> This shit is actually kind of cool for me cuz it let's you save to any date but the stuff will only be visible on that day  no deletion cuz <s> I don't want to </s><q> You gotta keep track of what you acheived that day </q> </em>

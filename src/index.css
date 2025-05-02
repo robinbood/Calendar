@@ -71,7 +71,7 @@ button:focus-visible {
 }
 
 table {
-  padding: auto;
+  align-self: center;
   border-radius: 0cm;
 }
 
