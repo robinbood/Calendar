@@ -1,10 +1,16 @@
 import "./App.css";
-import { createElement, useState } from "react";
+import { useState } from "react";
 function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [today, setToday] = useState(new Date().toLocaleDateString());
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const [notes, setNotes] = useState({});
+
+  const addNotes = (note: string) => {
+    setNotes(note);
+    window.localStorage.setItem("notes", JSON.stringify(note));
+  };
 
   function next() {
     if (currentMonth === 11) {
@@ -40,7 +46,9 @@ function App() {
             <th>Tuesday</th>
             <th>Wednesday</th>
             <th>Thursday</th>
-            <th>Friday<sup>🤲</sup></th>
+            <th>
+              Friday<sup>🤲</sup>
+            </th>
             <th>Saturday</th>
           </tr>
         </thead>
@@ -57,6 +65,7 @@ function App() {
                 return (
                   <td key={dayIndex} >
                     {day > 0 && day <= daysInMonth ? day : ""}
+                    {notes}
                   </td>
                 );
               })}
