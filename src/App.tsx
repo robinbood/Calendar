@@ -4,12 +4,12 @@ function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [today, setToday] = useState(new Date().toLocaleDateString());
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const daysInMonth = new Date(currentYear, currentMonth , 0).getDate();
   const [notes, setNotes] = useState({});
 
   const addNotes = (note: string) => {
     setNotes(note);
-    window.localStorage.setItem("notes", JSON.stringify(note));
+    window.localStorage.setItem("notes", JSON.stringify(notes));
   };
 
   function next() {
@@ -63,9 +63,9 @@ function App() {
                 ).getDay();
                 const day = weekIndex * 7 + dayIndex - firstDayOfMonth + 1;
                 return (
-                  <td key={dayIndex} >
-                    {day > 0 && day <= daysInMonth ? day : ""}
-                    {notes}
+                  <td key={dayIndex}  >
+                    {day > 0 && day <= daysInMonth ? day  : ""} 
+                    
                   </td>
                 );
               })}
