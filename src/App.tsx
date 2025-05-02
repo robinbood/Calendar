@@ -1,13 +1,16 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [today, setToday] = useState(new Date().toLocaleDateString());
   const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-  const [notes, setNotes] = useState({});
+  const [notes, setNotes] = useState<string>('');
 
-
+  useEffect(() => {
+    const notes = window.localStorage.getItem(today) || '';
+    setNotes(notes)
+  },[today])
 
   const addNotes = (note: string) => {
     setNotes(note);
@@ -72,10 +75,11 @@ function App() {
                   <td key={dayIndex}>
                     {day > 0 && day <= daysInMonth ? (
                       <>
-                        {day}
+                        {day} 
                         <form onSubmit={submit}>
                           <input onChange={({target}) => addNotes(target.value)}/>
                         </form>
+                        {new Date(currentYear, currentMonth, day).toLocaleDateString() === today && notes}
                       </>
                     ) : ""}
                   </td>
