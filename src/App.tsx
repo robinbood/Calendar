@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -70,7 +70,14 @@ function App() {
                 const day = weekIndex * 7 + dayIndex - firstDayOfMonth + 1;
                 return (
                   <td key={dayIndex}>
-                    {day > 0 && day <= daysInMonth ? day : ""}<form onSubmit={submit}><input onChange={({target}) => addNotes(target.value)}/></form>
+                    {day > 0 && day <= daysInMonth ? (
+                      <>
+                        {day}
+                        <form onSubmit={submit}>
+                          <input onChange={({target}) => addNotes(target.value)}/>
+                        </form>
+                      </>
+                    ) : ""}
                   </td>
                 );
               })}
