@@ -7,17 +7,15 @@ function App() {
   const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
   const [notes, setNotes] = useState({});
 
-  useEffect(() => {
-    const storedNotes = window.localStorage.getItem(today);
-    if (storedNotes) {
-      setNotes(JSON.parse(storedNotes));
-    }
-  }, [today]);
+
 
   const addNotes = (note: string) => {
     setNotes(note);
-    window.localStorage.setItem(JSON.stringify(today), JSON.stringify(notes));
-  };
+    };
+  const submit = (event: { preventDefault: () => void; }) => {
+    event.preventDefault()
+    window.localStorage.setItem((today), JSON.stringify(notes));
+  }  
 
 
   function next() {
@@ -72,7 +70,7 @@ function App() {
                 const day = weekIndex * 7 + dayIndex - firstDayOfMonth + 1;
                 return (
                   <td key={dayIndex}>
-                    {day > 0 && day <= daysInMonth ? day : ""}
+                    {day > 0 && day <= daysInMonth ? day : ""}<form onSubmit={submit}><input onChange={({target}) => addNotes(target.value)}/></form>
                   </td>
                 );
               })}
