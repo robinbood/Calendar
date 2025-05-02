@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { createElement, useState } from "react";
 function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
@@ -40,7 +40,7 @@ function App() {
             <th>Tuesday</th>
             <th>Wednesday</th>
             <th>Thursday</th>
-            <th>Friday</th>
+            <th>Friday<sup>🤲</sup></th>
             <th>Saturday</th>
           </tr>
         </thead>
@@ -55,7 +55,7 @@ function App() {
                 ).getDay();
                 const day = weekIndex * 7 + dayIndex - firstDayOfMonth + 1;
                 return (
-                  <td key={dayIndex}>
+                  <td key={dayIndex} >
                     {day > 0 && day <= daysInMonth ? day : ""}
                   </td>
                 );
