@@ -1,16 +1,24 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function App() {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [today, setToday] = useState(new Date().toLocaleDateString());
-  const daysInMonth = new Date(currentYear, currentMonth , 0).getDate();
+  const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
   const [notes, setNotes] = useState({});
+
+  useEffect(() => {
+    const storedNotes = window.localStorage.getItem(today);
+    if (storedNotes) {
+      setNotes(JSON.parse(storedNotes));
+    }
+  }, [today]);
 
   const addNotes = (note: string) => {
     setNotes(note);
-    window.localStorage.setItem("notes", JSON.stringify(notes));
+    window.localStorage.setItem(JSON.stringify(today), JSON.stringify(notes));
   };
+
 
   function next() {
     if (currentMonth === 11) {
@@ -34,7 +42,7 @@ function App() {
   return (
     <div>
       <div>
-        <button onClick={previous}>PREVIOUS</button>
+        <button onClick={previous} >PREVIOUS</button>
         <h1>{today}</h1>
         <button onClick={next}>NEXT</button>
       </div>
@@ -63,9 +71,8 @@ function App() {
                 ).getDay();
                 const day = weekIndex * 7 + dayIndex - firstDayOfMonth + 1;
                 return (
-                  <td key={dayIndex}  >
-                    {day > 0 && day <= daysInMonth ? day  : ""} 
-                    
+                  <td key={dayIndex}>
+                    {day > 0 && day <= daysInMonth ? day : ""}
                   </td>
                 );
               })}
